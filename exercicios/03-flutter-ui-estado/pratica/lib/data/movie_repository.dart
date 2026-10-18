@@ -63,7 +63,7 @@ class MovieRepository {
     final cached = await readCache();
     if (cached != null) {
       yield cached.movies;
-      if (now().difference(cached.savedAt) < ttl) return;
+      if (await cacheStatus() == CacheStatus.fresh) return;
     }
     try {
       final fresh = await remote.fetchMovies();
