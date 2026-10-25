@@ -68,3 +68,10 @@ de atualização. Os testes usam mocks; não exigem nem validam o token pessoal.
 O build gera `dist/sw.js` e o manifest instalável. O validador estrutural do
 professor confere os TODOs; os 3 pontos de evidências/reflexão dependem da revisão manual.
 A suíte e2e fornecida depende de navegador e token válido e não foi executada nesta entrega.
+
+## Evidências registradas
+
+O Codespaces confirmou 19 testes aprovados. A execução com token pessoal foi
+registrada com caches preenchidos, favoritos offline e atualização por confirmação
+(versão aguardando e versão ativada). Consulte os seis prints em [ENTREGA.md](ENTREGA.md).
+A comparação direta com o site do professor e a instalação/reabertura ainda estão pendentes.

@@ -2,33 +2,79 @@
 
 **Nome:** Amanda Santos Pereira Bouzan · **GitHub:** AmandaBouzan
 
-## 1. Site comum × PWA
+## 1. Site comum × PWA — comparação e observações
 
-A comparação abaixo descreve o comportamento esperado da arquitetura implementada.
-A observação no navegador do PWA do professor e os prints ainda precisam ser
-registrados pela aluna; não foram apresentados como observações já realizadas.
+A execução do meu build foi realizada no Chrome, pelo Codespaces, em 25/10/2026.
+Os prints abaixo registram os comportamentos observados no meu aplicativo.
+A comparação direta com o PWA publicado pelo professor e um site comum ainda está
+pendente; as propriedades do site comum na tabela são uma comparação técnica.
 
-| # | Site comum sem suporte offline | PWA desta atividade | Evidência a registrar |
+| # | Site comum sem recursos de PWA | O que observei no meu PWA | Evidência |
 |---|---|---|---|
-| 1 | O acesso depende da conexão e do cache HTTP disponível. | O Service Worker mantém o shell e aplica cache à API e aos pôsteres; o IndexedDB mantém os filmes. | Application → Service Workers e Cache Storage. |
-| 2 | Normalmente abre como uma aba do navegador. | O manifest com `display: standalone` permite instalação e abertura em janela própria em navegadores compatíveis. | Janela do app instalado ou manifest no DevTools. |
-| 3 | O carregamento de uma página normalmente usa a versão disponível no servidor. | Uma nova versão do Service Worker aguarda a escolha Atualizar/Depois, preservando a sessão até a confirmação. | Aviso “Nova versão disponível”. |
+| 1 | Sem Service Worker/cache persistente planejado, uma nova navegação offline pode falhar. | Os caches da API e dos pôsteres estavam preenchidos; a aba Favoritos mostrou dois filmes com pôsteres e o banner offline com a rede desativada. | Prints 1, 2 e 3. |
+| 2 | Normalmente abre em uma aba do navegador, sem instalação como aplicativo. | O Chrome apresentou a opção de instalação e a mensagem “Instale o app na tela inicial”. A instalação e reabertura em janela própria ainda não foram verificadas. | Print 5. |
+| 3 | Uma nova navegação normalmente carrega a versão disponível no servidor. | A nova versão ficou em “waiting to activate”, com Atualizar/Depois. Após a confirmação, o título mudou para “Filmes Populares — A4” e os favoritos permaneceram. | Prints 4 e 5. |
 
-Um site comum também pode adotar essas capacidades; as diferenças acima se referem
-à comparação com um site que não implementa Service Worker/manifest/offline.
+Um site também pode implementar esses recursos; a comparação é com um site que
+não utiliza manifest, Service Worker e estratégias explícitas de cache offline.
 
-## 2. Prova do offline no build
+## 2. Evidências do meu build
 
-**Pendente de execução com o token TMDB pessoal.** Os testes automatizados não
-substituem prints de uma execução real. Nenhum token foi incluído no repositório.
+Os prints são capturas originais da execução no navegador da aluna, sem alterações.
+O token TMDB foi configurado somente no `.env.local`, ignorado pelo Git.
 
-- [ ] Visitar o PWA do professor e registrar a comparação da seção 1.
-- [ ] Capturar Application → Cache Storage: `tmdb-api` e `tmdb-images` com itens.
-- [ ] Capturar o app após modo Offline + reload e a aba Favoritos com o banner.
-- [ ] Capturar o aviso “Nova versão disponível” e testar Atualizar/Depois.
+### 1 — API em cache
 
-Salvar as imagens em `evidencias/` e referenciá-las neste arquivo depois do teste.
-Procedimento completo no [README](README.md).
+O cache `tmdb-api` contém uma resposta de `/3/movie/popular` em português.
+
+![Resposta da API salva no Cache Storage](evidencias/01-cache-api.png)
+
+### 2 — Pôsteres em cache
+
+O cache `tmdb-images` contém 12 imagens com respostas opacas, aceitas pela regra
+`cacheableResponse: { statuses: [0, 200] }`.
+
+![Doze pôsteres salvos no Cache Storage](evidencias/02-cache-posteres.png)
+
+### 3 — Favoritos offline
+
+Com o DevTools em Offline, a aba Favoritos manteve dois filmes e seus pôsteres,
+exibindo “Offline — exibindo dados do cache”. As tentativas de rede que falharam
+aparecem em vermelho no painel Network. O print demonstra o estado offline;
+o ciclo de fechar e reabrir o app instalado ainda não foi registrado.
+
+![Favoritos e banner com a rede offline](evidencias/03-favoritos-offline.png)
+
+### 4 — Nova versão aguardando confirmação
+
+Após alterar o título e gerar outro build, o worker #1178 ficou aguardando
+ativação, enquanto o #1177 continuou ativo. O aplicativo mostrou o aviso e os
+botões Atualizar/Depois. O botão Depois tem cobertura unitária; sua execução
+manual não foi registrada.
+
+![Aviso de nova versão e Service Worker aguardando ativação](evidencias/04-nova-versao.png)
+
+### 5 — Atualização aplicada
+
+Após clicar em Atualizar no aplicativo, o worker #1178 passou a ativo e o título
+mudou para “Filmes Populares — A4”. Os dois favoritos continuaram marcados.
+A alteração temporária do título foi usada para tornar a atualização visível.
+
+![Nova versão ativa e favoritos preservados](evidencias/05-versao-ativada.png)
+
+### 6 — Testes automatizados
+
+`npm test`: 6 arquivos e 19 testes aprovados no Codespaces.
+`npm run build`: concluído com geração do Service Worker.
+O validador estrutural local aprovou os 12 pontos automáticos; isso não substitui
+a correção manual nem representa a nota final no Canvas.
+
+![Dezenove testes aprovados no Codespaces](evidencias/06-testes.png)
+
+### Pendências de observação
+
+- Comparar diretamente o PWA do professor com um site comum.
+- Instalar, fechar e reabrir o aplicativo; registrar o resultado.
 
 ## 3. Reflexão: autoUpdate × prompt
 
@@ -42,6 +88,7 @@ Se o produto priorizasse leitura sem interrupções, usaria `prompt` também par
 
 ## 4. Declaração de uso de IA
 
-Foi usado ChatGPT/Codex para ler o enunciado, implementar os TODOs, acrescentar
-verificações automatizadas e preparar a documentação e o Pull Request. A validação
-com o token pessoal e as evidências visuais ainda precisam ser realizadas pela aluna.
+Usei ChatGPT/Codex para interpretar o enunciado, implementar os TODOs, acrescentar
+testes e preparar a documentação. Executei o projeto no Codespaces com meu token
+TMDB e forneci os prints de cache, favoritos offline, atualização e testes.
+A documentação distingue os comportamentos registrados das verificações pendentes.
