@@ -1,37 +1,47 @@
 # ENTREGA — Atividade 4 (PWA)
 
-> Preencha e faça commit junto com o código. Esta parte vale 3 pts (avaliação manual no Canvas).
+**Nome:** Amanda Santos Pereira Bouzan · **GitHub:** AmandaBouzan
 
-**Nome:** <seu nome> · **GitHub:** <seu-login>
+## 1. Site comum × PWA
 
----
+A comparação abaixo descreve o comportamento esperado da arquitetura implementada.
+A observação no navegador do PWA do professor e os prints ainda precisam ser
+registrados pela aluna; não foram apresentados como observações já realizadas.
 
-## 1. Site comum × PWA — o que EU vi (3 diferenças)
-
-Abra `https://pwa-tmdb-aula4.vercel.app` e compare com um site comum (ex.: themoviedb.org). Modo avião → recarregar; fechar e reabrir; instalar.
-
-| # | Site comum | PWA | Print/evidência |
+| # | Site comum sem suporte offline | PWA desta atividade | Evidência a registrar |
 |---|---|---|---|
-| 1 | | | |
-| 2 | | | |
-| 3 | | | |
+| 1 | O acesso depende da conexão e do cache HTTP disponível. | O Service Worker mantém o shell e aplica cache à API e aos pôsteres; o IndexedDB mantém os filmes. | Application → Service Workers e Cache Storage. |
+| 2 | Normalmente abre como uma aba do navegador. | O manifest com `display: standalone` permite instalação e abertura em janela própria em navegadores compatíveis. | Janela do app instalado ou manifest no DevTools. |
+| 3 | O carregamento de uma página normalmente usa a versão disponível no servidor. | Uma nova versão do Service Worker aguarda a escolha Atualizar/Depois, preservando a sessão até a confirmação. | Aviso “Nova versão disponível”. |
 
-## 2. Prova do offline no SEU build
+Um site comum também pode adotar essas capacidades; as diferenças acima se referem
+à comparação com um site que não implementa Service Worker/manifest/offline.
 
-- [ ] Print do **DevTools → Application → Cache Storage** com `tmdb-api` e `tmdb-images` (com itens)
-- [ ] Print do app em **modo avião** carregando a lista
-- [ ] Print do aviso **"Nova versão disponível"** (ou explique por que não conseguiu reproduzir)
+## 2. Prova do offline no build
 
-(Coloque os prints numa pasta `evidencias/` e referencie aqui.)
+**Pendente de execução com o token TMDB pessoal.** Os testes automatizados não
+substituem prints de uma execução real. Nenhum token foi incluído no repositório.
 
-## 3. Reflexão (5–8 linhas)
+- [ ] Visitar o PWA do professor e registrar a comparação da seção 1.
+- [ ] Capturar Application → Cache Storage: `tmdb-api` e `tmdb-images` com itens.
+- [ ] Capturar o app após modo Offline + reload e a aba Favoritos com o banner.
+- [ ] Capturar o aviso “Nova versão disponível” e testar Atualizar/Depois.
 
-`autoUpdate` × `prompt`: qual você escolheria para um app de **checkout** e para um app de **notícias**, e por quê? O que pode dar errado em cada escolha?
+Salvar as imagens em `evidencias/` e referenciá-las neste arquivo depois do teste.
+Procedimento completo no [README](README.md).
 
-<sua resposta>
+## 3. Reflexão: autoUpdate × prompt
+
+Para um checkout eu escolheria `prompt`, evitando recarregar a página durante o pagamento.
+O aviso permite concluir a compra antes de ativar a nova versão.
+O risco é manter uma versão antiga, então o servidor deve preservar compatibilidade e validar a transação.
+Para um app de notícias eu escolheria `autoUpdate`, pois simplifica a adoção de correções e melhorias.
+Mesmo nesse caso, uma recarga pode interromper a leitura e perder a posição do artigo.
+Eu preservaria artigo e posição, e separaria a atualização das notícias da atualização do código do app.
+Se o produto priorizasse leitura sem interrupções, usaria `prompt` também para notícias.
 
 ## 4. Declaração de uso de IA
 
-Usei IA? Onde e como? (uso transparente é incentivado)
-
-<sua resposta>
+Foi usado ChatGPT/Codex para ler o enunciado, implementar os TODOs, acrescentar
+verificações automatizadas e preparar a documentação e o Pull Request. A validação
+com o token pessoal e as evidências visuais ainda precisam ser realizadas pela aluna.
