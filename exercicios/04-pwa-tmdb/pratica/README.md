@@ -75,4 +75,6 @@ O Codespaces confirmou 19 testes aprovados. A execução com token pessoal foi
 registrada com caches preenchidos, favoritos offline e atualização por confirmação
 (versão aguardando e versão ativada). Consulte os seis prints em [ENTREGA.md](ENTREGA.md).
 A instalação e abertura em janela própria também foram registradas.
-A comparação direta com o site do professor permanece pendente.
+A comparação direta também foi registrada: o PWA do professor manteve filmes
+após reload offline, enquanto a navegação offline no site TMDB falhou.
+As nove capturas e os limites da comparação estão no ENTREGA.md.

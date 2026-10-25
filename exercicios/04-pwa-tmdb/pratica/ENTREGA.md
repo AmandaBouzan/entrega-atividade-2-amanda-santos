@@ -2,21 +2,24 @@
 
 **Nome:** Amanda Santos Pereira Bouzan · **GitHub:** AmandaBouzan
 
-## 1. Site comum × PWA — comparação e observações
+## 1. Site comum × PWA — três diferenças observadas
 
-A execução do meu build foi realizada no Chrome, pelo Codespaces, em 25/10/2026.
-Os prints abaixo registram os comportamentos observados no meu aplicativo.
-A comparação direta com o PWA publicado pelo professor e um site comum ainda está
-pendente; as propriedades do site comum na tabela são uma comparação técnica.
+Em 25/10/2026, comparei o PWA do professor
+(`https://pwa-tmdb-aula4.vercel.app`) com o site TMDB
+(`https://www.themoviedb.org/`). Carreguei online e depois selecionei Offline no
+DevTools e recarreguei cada página. Também instalei meu próprio PWA e o abri pelo
+menu Iniciar. Os resultados abaixo se limitam às condições desse teste.
 
-| # | Site comum sem recursos de PWA | O que observei no meu PWA | Evidência |
+| # | Site TMDB aberto como site comum | PWA observado | Evidência |
 |---|---|---|---|
-| 1 | Sem Service Worker/cache persistente planejado, uma nova navegação offline pode falhar. | Os caches da API e dos pôsteres estavam preenchidos; a aba Favoritos mostrou dois filmes com pôsteres e o banner offline com a rede desativada. | Prints 1, 2 e 3. |
-| 2 | Normalmente abre em uma aba do navegador, sem instalação como aplicativo. | O Chrome apresentou a opção de instalação e a mensagem “Instale o app na tela inicial”. A instalação foi concluída, o app apareceu no menu Iniciar e foi aberto em janela própria com os favoritos mantidos. | Prints 5 e 7. |
-| 3 | Uma nova navegação normalmente carrega a versão disponível no servidor. | A nova versão ficou em “waiting to activate”, com Atualizar/Depois. Após a confirmação, o título mudou para “Filmes Populares — A4” e os favoritos permaneceram. | Prints 4 e 5. |
+| 1 — Recarregar sem rede | A navegação falhou e o Chrome mostrou `ERR_INTERNET_DISCONNECTED`. | O PWA do professor continuou renderizando a lista após o reload offline. | Prints 8 e 9. |
+| 2 — Conteúdo disponível sem rede | Na página de erro não foi possível consultar os cards do catálogo. | O PWA do professor manteve títulos, notas e pôsteres já carregados; no meu app, os favoritos e o banner offline também ficaram disponíveis. | Prints 3, 8 e 9. |
+| 3 — Forma de abrir e retomar o uso | O site foi acessado em uma aba com a interface do Chrome. | Meu PWA foi instalado, apareceu no menu Iniciar e abriu em janela própria sem abas/barra de endereço, mantendo os favoritos. | Print 7 e sequência de instalação. |
 
-Um site também pode implementar esses recursos; a comparação é com um site que
-não utiliza manifest, Service Worker e estratégias explícitas de cache offline.
+As duas primeiras diferenças descrevem, respectivamente, a navegação e o conteúdo
+retido no mesmo teste offline. A terceira compara a forma de uso observada, sem
+afirmar que o site TMDB não possa oferecer instalação. Não é uma regra universal:
+um site comum também pode implementar manifest, Service Worker e cache offline.
 
 ## 2. Evidências do meu build
 
@@ -80,9 +83,24 @@ o app instalado sem a barra de endereço e sem as abas de uma janela comum.
 
 ![PWA instalado e aberto em janela própria](evidencias/07-app-instalado.png)
 
-### Pendências de observação
+### 8 — PWA do professor após recarregar offline
 
-- Comparar diretamente o PWA do professor com um site comum.
+O DevTools está em Offline, mas a lista de filmes e os pôsteres continuam visíveis.
+Há tentativas de rede falhas e imagens atendidas pelo cache de disco; o print não
+permite atribuir todo o conteúdo exclusivamente ao Service Worker. O indicador
+interno do professor ainda mostra Online, por isso o estado de rede usado como
+referência é o DevTools.
+
+![PWA do professor exibindo filmes após reload offline](evidencias/08-professor-offline.png)
+
+### 9 — Site comum após recarregar offline
+
+No mesmo procedimento com o TMDB, a navegação do documento falhou e o navegador
+mostrou o dinossauro e `ERR_INTERNET_DISCONNECTED`. As respostas 200 anteriores
+continuam na lista porque Preserve log está habilitado; elas não significam que
+a nova navegação offline tenha funcionado.
+
+![Site TMDB com erro de conexão após reload offline](evidencias/09-site-comum-offline.png)
 
 ## 3. Reflexão: autoUpdate × prompt
 
@@ -99,4 +117,5 @@ Se o produto priorizasse leitura sem interrupções, usaria `prompt` também par
 Usei ChatGPT/Codex para interpretar o enunciado, implementar os TODOs, acrescentar
 testes e preparar a documentação. Executei o projeto no Codespaces com meu token
 TMDB e forneci os prints de cache, favoritos offline, atualização e testes.
-A documentação distingue os comportamentos registrados das verificações pendentes.
+Também comparei o PWA do professor com o site TMDB em modo offline.
+A documentação descreve os resultados e os limites das capturas, sem generalizar para todos os sites.
