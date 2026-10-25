@@ -12,7 +12,7 @@ pendente; as propriedades do site comum na tabela são uma comparação técnica
 | # | Site comum sem recursos de PWA | O que observei no meu PWA | Evidência |
 |---|---|---|---|
 | 1 | Sem Service Worker/cache persistente planejado, uma nova navegação offline pode falhar. | Os caches da API e dos pôsteres estavam preenchidos; a aba Favoritos mostrou dois filmes com pôsteres e o banner offline com a rede desativada. | Prints 1, 2 e 3. |
-| 2 | Normalmente abre em uma aba do navegador, sem instalação como aplicativo. | O Chrome apresentou a opção de instalação e a mensagem “Instale o app na tela inicial”. A instalação e reabertura em janela própria ainda não foram verificadas. | Print 5. |
+| 2 | Normalmente abre em uma aba do navegador, sem instalação como aplicativo. | O Chrome apresentou a opção de instalação e a mensagem “Instale o app na tela inicial”. A instalação foi concluída, o app apareceu no menu Iniciar e foi aberto em janela própria com os favoritos mantidos. | Prints 5 e 7. |
 | 3 | Uma nova navegação normalmente carrega a versão disponível no servidor. | A nova versão ficou em “waiting to activate”, com Atualizar/Depois. Após a confirmação, o título mudou para “Filmes Populares — A4” e os favoritos permaneceram. | Prints 4 e 5. |
 
 Um site também pode implementar esses recursos; a comparação é com um site que
@@ -41,7 +41,7 @@ O cache `tmdb-images` contém 12 imagens com respostas opacas, aceitas pela regr
 Com o DevTools em Offline, a aba Favoritos manteve dois filmes e seus pôsteres,
 exibindo “Offline — exibindo dados do cache”. As tentativas de rede que falharam
 aparecem em vermelho no painel Network. O print demonstra o estado offline;
-o ciclo de fechar e reabrir o app instalado ainda não foi registrado.
+a abertura do aplicativo instalado em janela própria também foi registrada no print 7.
 
 ![Favoritos e banner com a rede offline](evidencias/03-favoritos-offline.png)
 
@@ -71,10 +71,18 @@ a correção manual nem representa a nota final no Canvas.
 
 ![Dezenove testes aprovados no Codespaces](evidencias/06-testes.png)
 
+### 7 — Aplicativo instalado em janela própria
+
+Os prints enviados pela aluna registram a instalação pelo Chrome, o aplicativo
+“TMDB Popular Movies” no menu Iniciar e sua abertura em janela própria.
+O título atualizado e os dois favoritos foram mantidos. A captura abaixo mostra
+o app instalado sem a barra de endereço e sem as abas de uma janela comum.
+
+![PWA instalado e aberto em janela própria](evidencias/07-app-instalado.png)
+
 ### Pendências de observação
 
 - Comparar diretamente o PWA do professor com um site comum.
-- Instalar, fechar e reabrir o aplicativo; registrar o resultado.
 
 ## 3. Reflexão: autoUpdate × prompt
 

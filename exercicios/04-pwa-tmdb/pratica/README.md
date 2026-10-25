@@ -74,4 +74,5 @@ A suíte e2e fornecida depende de navegador e token válido e não foi executada
 O Codespaces confirmou 19 testes aprovados. A execução com token pessoal foi
 registrada com caches preenchidos, favoritos offline e atualização por confirmação
 (versão aguardando e versão ativada). Consulte os seis prints em [ENTREGA.md](ENTREGA.md).
-A comparação direta com o site do professor e a instalação/reabertura ainda estão pendentes.
+A instalação e abertura em janela própria também foram registradas.
+A comparação direta com o site do professor permanece pendente.
