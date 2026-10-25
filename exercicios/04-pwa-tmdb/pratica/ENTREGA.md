@@ -2,6 +2,14 @@
 
 **Nome:** Amanda Santos Pereira Bouzan · **GitHub:** AmandaBouzan
 
+## Ambiente de desenvolvimento e testes
+
+Utilizei o GitHub Codespaces porque meu notebook estava travando ao executar o
+projeto localmente. A instalação das dependências, o build e os testes automatizados
+foram executados no Codespaces. A validação visual, os testes offline e a instalação
+do PWA foram realizados no Chrome do meu computador, acessando a porta 4173
+encaminhada pelo Codespaces.
+
 ## 1. Site comum × PWA — três diferenças observadas
 
 Em 25/10/2026, comparei o PWA do professor
