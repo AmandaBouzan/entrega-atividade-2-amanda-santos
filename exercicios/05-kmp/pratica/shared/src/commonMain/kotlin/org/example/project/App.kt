@@ -45,7 +45,7 @@ fun App(tmdbToken: String = "") {
             }
         }
 
-        Surface(modifier = Modifier.fillMaxSize()) {
+        Surface(modifier = Modifier.fillMaxSize().safeDrawingPadding()) {
             when {
                 tmdbToken.isBlank() -> TokenMissingMessage()
                 isLoading -> Box(
